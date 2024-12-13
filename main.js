@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const token = '8125764878:AAHKwqCtYKeYcXDoG8x09mapynEq-m_WxF8'; // токен бота
 const bot = new TelegramBot(token, { polling: true });
-const KeepAlive = require('keep_alive');
+const KeepAlive = require('./keep_alive.js');
 
 const requiredChannel = '-1001857511663'; // заменить на id канала который нужно чтоб человек был подписан
 const requiredChannelLink = "https://t.me/AmericaninSPB"; // а здесь просто ссылка на канал
