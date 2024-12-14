@@ -89,7 +89,7 @@ const testQuestions = [
     correct: 1
   },
   {
-    question: '9/25 He ____ very fast when the police _ him.',
+    question: '9/25 He ____ very fast when the police ____ him.',
     options: ['drove / stop', 'was driving / stopped', 'has drove / was stopping'],
     correct: 1
   },
@@ -99,7 +99,7 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '11/25 Do you _ coffee? Yes, but ____ to quit.',
+    question: '11/25 Do you ____ coffee? Yes, but ____ to quit.',
     options: ['drink / I’m trying', 'drinking / I try', 'drunk / I’m trying'],
     correct: 0
   },
@@ -129,7 +129,7 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '17/25 I ____ an umbrella with me this morning because it __.',
+    question: '17/25 I ____ an umbrella with me this morning because it ____.',
     options: ['didn’t take / rained', 'took / was raining', 'took / have rained'],
     correct: 1
   },
