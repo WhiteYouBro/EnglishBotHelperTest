@@ -117,7 +117,7 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '14/25 David ____ in that industry for many years so a lot of contacts.',
+    question: '14/25 David ____ in that industry for many years so he has a lot of contacts.',
     options: ['is working', 'has been working', 'have worked'],
     correct: 1
   },
@@ -143,7 +143,7 @@ const testQuestions = [
   },
   {
     question: '19/25 If only I ____ that you wanted to meet her.',
-    options: ['I know', 'had known', 'have known'],
+    options: ['know', 'had known', 'have known'],
     correct: 1
   },
   {
