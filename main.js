@@ -74,22 +74,22 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '6/25 _ a hospital near here?',
+    question: '6/25 ____ a hospital near here?',
     options: ['There is', 'Is there', 'There are'],
     correct: 1
   },
   {
-    question: '7/25 Have you finished _ the kitchen yet?',
+    question: '7/25 Have you finished ____ the kitchen yet?',
     options: ['to clean', 'cleaning', 'cleaned'],
     correct: 1
   },
   {
-    question: '8/25 She drove the car _ the garage.',
+    question: '8/25 She drove the car ____ the garage.',
     options: ['between', 'out of', 'down'],
     correct: 1
   },
   {
-    question: '9/25 He ___ very fast when the police _ him.',
+    question: '9/25 He ____ very fast when the police _ him.',
     options: ['drove / stop', 'was driving / stopped', 'has drove / was stopping'],
     correct: 1
   },
@@ -99,7 +99,7 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '11/25 Do you _ coffee? Yes, but _ to quit.',
+    question: '11/25 Do you _ coffee? Yes, but ____ to quit.',
     options: ['drink / I’m trying', 'drinking / I try', 'drunk / I’m trying'],
     correct: 0
   },
@@ -109,47 +109,47 @@ const testQuestions = [
     correct: 1
   },
   {
-    question: '13/25 This coffee tastes __ the other.',
+    question: '13/25 This coffee tastes ____ the other.',
     options: ['sweeter than', 'more sweet than', 'more sweeter than'],
     correct: 0
   },
   {
-    question: '14/25 David _ in that industry for many years so a lot of contacts.',
+    question: '14/25 David ____ in that industry for many years so a lot of contacts.',
     options: ['is working', 'has been working', 'have worked'],
     correct: 1
   },
   {
-    question: '15/25 _ my leg. I broke it while playing football with my brother.',
+    question: '15/25 ____ my leg. ____ it while playing football with my brother.',
     options: ['I’ve broken / I broke', 'Broke / I’ve broken'],
     correct: 0
   },
   {
-    question: '16/25 When my brother was 20 he  in an apartment in London. At that time, he  at HSBC.',
+    question: '16/25 When my brother was 20 he ____ in an apartment in London. At that time, he ____ at HSBC.',
     options: ['used to live / was working', 'had lived / worked', 'would live / had worked'],
     correct: 0
   },
   {
-    question: '17/25 I  an umbrella with me this morning because it __.',
+    question: '17/25 I ____ an umbrella with me this morning because it __.',
     options: ['didn’t take / rained', 'took / was raining', 'took / have rained'],
     correct: 1
   },
   {
-    question: '18/25 __ your question about our services, I have attached a document where you can see all necessary details.',
+    question: '18/25 ____ your question about our services, I have attached a document where you can see all necessary details.',
     options: ['As far as', 'Where as', 'Regarding'],
     correct: 2
   },
   {
-    question: '19/25 If only I __ that you wanted to meet her.',
+    question: '19/25 If only I ____ that you wanted to meet her.',
     options: ['I know', 'had known', 'have known'],
     correct: 1
   },
   {
-    question: '20/25 We’d better find a quick solution to this crisis, __ all our customers will start to lose faith in us.',
+    question: '20/25 We’d better find a quick solution to this crisis, ____ all our customers will start to lose faith in us.',
     options: ['in fact', 'otherwise', 'after all'],
     correct: 1
   },
   {
-    question: '21/25 The family was shocked that the crime happened in _ daylight.',
+    question: '21/25 The family was shocked that the crime happened in ____ daylight.',
     options: ['wide', 'large', 'broad'],
     correct: 2
   },
@@ -164,12 +164,12 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '24/25 Don’t buy a car from there they will _ you _.',
+    question: '24/25 Don’t buy a car from there they will ____ you ____.',
     options: ['Rip off', 'Mess up', 'Lay off'],
     correct: 0
   },
   {
-    question: '25/25 If you cancel now you’ll _ all my arrangements.',
+    question: '25/25 If you cancel now you’ll ____ all my arrangements.',
     options: ['Check out', 'Knuckle down', 'Mess up'],
     correct: 2
   },
@@ -332,7 +332,7 @@ bot.on('callback_query', async (query) => {
 
   const session = userSessions[userId];
   if (!session) {
-    bot.sendMessage(chatId, 'Ваш тест был сброшен из-за неактивности. Наберите /start, чтобы начать заново.');
+    bot.sendMessage(chatId, 'Произошла неизвестная ошибка. Можете её игнорировать и продолжать тест! ☺');
     return;
   }
 
