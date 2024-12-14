@@ -408,8 +408,9 @@ function sendQuestion(chatId, userId) {
       }
       
       // Отправляем результат и гифку
-      bot.sendMessage(chatId, `Ваш результат: ${session.score}/${testQuestions.length}. Уровень: ${level}\n\n${description}`).then(() => {
+      bot.sendMessage(chatId, `⭐️ Ваш результат: ${session.score}/${testQuestions.length}.\n\n 🥇 Ваш уровень: ${level}\n\n${description}`).then(() => {
         bot.sendAnimation(chatId, 'gif1.gif');
+        bot.sendDocument(chatId, './1000 words.pdf')
       });
     } else {
       bot.sendMessage(chatId, 'Тест завершён.');
