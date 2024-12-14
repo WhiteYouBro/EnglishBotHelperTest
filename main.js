@@ -1,115 +1,141 @@
 const TelegramBot = require('node-telegram-bot-api');
+const fs = require('fs');
 const token = '8125764878:AAHKwqCtYKeYcXDoG8x09mapynEq-m_WxF8'; // токен бота
 const bot = new TelegramBot(token, { polling: true });
 const KeepAlive = require('./keep_alive.js');
 
 const requiredChannel = '-1001857511663'; // заменить на id канала который нужно чтоб человек был подписан
 const requiredChannelLink = "https://t.me/AmericaninSPB"; // а здесь просто ссылка на канал
+
 const testQuestions = [
   {
-    question: 'What is the capital of England?',
-    options: ['Paris', 'London', 'Berlin', 'Madrid'],
-    correct: 1
-  },
-  {
-    question: 'Choose the correct sentence:',
-    options: ['She go to school.', 'She goes to school.', 'She going to school.', 'She gone to school.'],
-    correct: 1
-  },
-  {
-    question: 'What is the opposite of "hot"?',
-    options: ['Cold', 'Warm', 'Cool', 'Freezing'],
-    correct: 0
-  },
-  {
-    question: 'Which word is a noun?',
-    options: ['Quickly', 'Happy', 'Dog', 'Run'],
+    question: '1/25 How old are you?',
+    options: ['I is 25.', 'I have 25.', 'I am 25.'],
     correct: 2
   },
   {
-    question: 'I ___ breakfast every day.',
-    options: ['eat', 'eats', 'eating', 'eaten'],
-    correct: 0
-  },
-  {
-    question: 'Where ___ you live?',
-    options: ['does', 'do', 'are', 'is'],
+    question: '2/25 Do you work on Fridays?',
+    options: ['Yes, I work.', 'Yes, I do.', 'Yes, I am.'],
     correct: 1
   },
   {
-    question: 'Choose the correct preposition: The cat is ___ the table.',
-    options: ['on', 'in', 'at', 'over'],
-    correct: 0
-  },
-  {
-    question: 'What is the past tense of "go"?',
-    options: ['Goed', 'Went', 'Gone', 'Going'],
-    correct: 1
-  },
-  {
-    question: 'If I ___ you, I would study harder.',
-    options: ['was', 'am', 'were', 'be'],
+    question: '3/25 Do you have a brother?',
+    options: ['No, I not have.', 'No, me don’t.', 'No, I don’t.'],
     correct: 2
   },
   {
-    question: 'Choose the correct form: She has ___ her homework yet.',
-    options: ['finish', 'finished', 'finishing', 'finishes'],
-    correct: 1
-  },
-  {
-    question: 'What does "to break the ice" mean?',
-    options: ['To make something cold', 'To start a conversation in a social setting', 'To break something physically', 'To end a relationship'],
-    correct: 1
-  },
-  {
-    question: 'Which sentence is correct?',
-    options: ['He don’t like coffee.', 'He doesn’t likes coffee.', 'He doesn’t like coffee.', 'He not like coffee.'],
+    question: '4/25 I’m going to the shop. ________ you like to come?',
+    options: ['Do', 'Are', 'Would'],
     correct: 2
   },
   {
-    question: 'Although it was raining, we decided to go for a walk. This sentence shows:',
-    options: ['Cause and effect', 'Contrast', 'Addition', 'Comparison'],
+    question: '5/25 I’d like ____ sugar in my coffee.',
+    options: ['Some', 'Any', 'A'],
+    correct: 0
+  },
+  {
+    question: '6/25 _ a hospital near here?',
+    options: ['There is', 'Is there', 'There are'],
     correct: 1
   },
   {
-    question: 'Choose the best synonym for "happy":',
-    options: ['Sad', 'Joyful', 'Angry', 'Tired'],
+    question: '7/25 Have you finished _ the kitchen yet?',
+    options: ['to clean', 'cleaning', 'cleaned'],
     correct: 1
   },
   {
-    question: 'What is the meaning of "to hit the books"?',
-    options: ['To exercise', 'To study hard', 'To write a book', 'To read casually'],
+    question: '8/25 She drove the car _ the garage.',
+    options: ['between', 'out of', 'down'],
     correct: 1
   },
   {
-    question: 'Which sentence uses the passive voice correctly?',
-    options: ['The cake was eaten by John.', 'John eats the cake.', 'John was eat the cake.', 'The cake eaten by John was.'],
+    question: '9/25 He ___ very fast when the police _ him.',
+    options: ['drove / stop', 'was driving / stopped', 'has drove / was stopping'],
+    correct: 1
+  },
+  {
+    question: '10/25 He is good at his job so he ____ a lot of money.',
+    options: ['Makes', 'Does', 'Have'],
     correct: 0
   },
   {
-    question: 'Choose the correct word to complete the sentence: The committee reached a ___ decision after much debate.',
-    options: ['consensus', 'contradicting', 'controversial', 'conclusive'],
+    question: '11/25 Do you _ coffee? Yes, but _ to quit.',
+    options: ['drink / I’m trying', 'drinking / I try', 'drunk / I’m trying'],
     correct: 0
   },
   {
-    question: 'The phrase "in light of" means:',
-    options: ['Because of', 'In spite of', 'During', 'After'],
+    question: '12/25 I hurt my leg ____ I was playing football.',
+    options: ['During', 'while', 'for'],
+    correct: 1
+  },
+  {
+    question: '13/25 This coffee tastes __ the other.',
+    options: ['sweeter than', 'more sweet than', 'more sweeter than'],
     correct: 0
   },
   {
-    question: 'Which sentence is grammatically correct?',
-    options: ['If I had known about the meeting, I would have attended it.', 'If I know about the meeting, I would attend it.', 'If I knew about the meeting, I will attend it.', 'If I had know about the meeting, I would attend it.'],
+    question: '14/25 David _ in that industry for many years so a lot of contacts.',
+    options: ['is working', 'has been working', 'have worked'],
+    correct: 1
+  },
+  {
+    question: '15/25 _ my leg. I broke it while playing football with my brother.',
+    options: ['I’ve broken / I broke', 'Broke / I’ve broken'],
     correct: 0
   },
   {
-    question: 'What does "to throw in the towel" mean?',
-    options: ['To give up or admit defeat', 'To start something new', 'To take a break', 'To celebrate success'],
+    question: '16/25 When my brother was 20 he  in an apartment in London. At that time, he  at HSBC.',
+    options: ['used to live / was working', 'had lived / worked', 'would live / had worked'],
     correct: 0
-  }
+  },
+  {
+    question: '17/25 I  an umbrella with me this morning because it __.',
+    options: ['didn’t take / rained', 'took / was raining', 'took / have rained'],
+    correct: 1
+  },
+  {
+    question: '18/25 __ your question about our services, I have attached a document where you can see all necessary details.',
+    options: ['As far as', 'Where as', 'Regarding'],
+    correct: 2
+  },
+  {
+    question: '19/25 If only I __ that you wanted to meet her.',
+    options: ['I know', 'had known', 'have known'],
+    correct: 1
+  },
+  {
+    question: '20/25 We’d better find a quick solution to this crisis, __ all our customers will start to lose faith in us.',
+    options: ['in fact', 'otherwise', 'after all'],
+    correct: 1
+  },
+  {
+    question: '21/25 The family was shocked that the crime happened in _ daylight.',
+    options: ['wide', 'large', 'broad'],
+    correct: 2
+  },
+  {
+    question: '22/25 Tony has had his motorbike...',
+    options: ['when he passed his driving test.', 'since he passed his driving test.', 'as he passed his driving test.'],
+    correct: 1
+  },
+  {
+    question: '23/25 I always get _____ before an important meeting.',
+    options: ['butterflies in my stomach', 'All ears', 'A lot on one’s plate'],
+    correct: 0
+  },
+  {
+    question: '24/25 Don’t buy a car from there they will _ you _.',
+    options: ['Rip off', 'Mess up', 'Lay off'],
+    correct: 0
+  },
+  {
+    question: '25/25 If you cancel now you’ll _ all my arrangements.',
+    options: ['Check out', 'Knuckle down', 'Mess up'],
+    correct: 2
+  },
 ];
-
 const userSessions = {}; //  состояния пользователей
-const INACTIVITY_TIMEOUT = 60 * 60 * 1000; // 1 час для неактивности (после идёт сброс) для 1 минуты неактивности надо 10 ввести
+const INACTIVITY_TIMEOUT = 60 * 60 * 1000; // 1 час для неактивности (после идёт сброс)
 
 //проверка подписки
 async function checkSubscription(userId) {
@@ -124,10 +150,10 @@ async function checkSubscription(userId) {
 
 // Функция определения уровня английского
 function determineLevel(score) {
-  if (score <= 4) return 'A1 (Начальный уровень)';
-  if (score <= 8) return 'A2 (Элементарный уровень)';
-  if (score <= 12) return 'B1 (Средний уровень)';
-  if (score <= 16) return 'B2 (Выше среднего уровня)';
+  if (score <= 5) return 'A1 (Начальный уровень)';
+  if (score <= 10) return 'A2 (Элементарный уровень)';
+  if (score <= 15) return 'B1 (Средний уровень)';
+  if (score <= 20) return 'B2 (Выше среднего уровня)';
   return 'C1 (Продвинутый уровень)';
 }
 
@@ -143,15 +169,6 @@ function getLevelDescription(level) {
 }
 
 // Обработка команды /start
-
-bot.on('polling_error', (error) => {
-	var time = new Date();
-	console.log("TIME:", time);
-	console.log("CODE:", error.code);  // => 'EFATAL'
-	console.log("MSG:", error.message);
-	console.log("STACK:", error.stack);
-});
-
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   const userId = msg.from.id;
@@ -173,12 +190,13 @@ bot.onText(/\/start/, async (msg) => {
     return;
   }
 
-  bot.sendMessage(chatId, 'Вы хотите узнать свой уровень английского?', {
+  bot.sendPhoto(chatId, 'image1.jpg', {
+    caption: 'Привет! 👋\n\nЭто бот, который определит твой уровень английского языка\n\nГотов? Жми на кнопку ниже',
     reply_markup: {
       inline_keyboard: [
         [
           {
-            text: 'Хочу узнать',
+            text: 'Пройти тест 🔥',
             callback_data: `start_test_${userId}`,
           },
         ],
@@ -197,12 +215,13 @@ bot.on('callback_query', async (query) => {
       bot.sendMessage(chatId, `Вы все еще не подписаны на канал ${requiredChannelLink}.`);
     } else {
       bot.sendMessage(chatId, 'Спасибо за подписку! Теперь вы можете начать тест.');
-      bot.sendMessage(chatId, 'Вы хотите узнать свой уровень английского?', {
+      bot.sendPhoto(chatId, 'image1.jpg', {
+        caption: 'Привет! 👋\n\nЭто бот, который определит твой уровень английского языка\n\nГотов? Жми на кнопку ниже',
         reply_markup: {
           inline_keyboard: [
             [
               {
-                text: 'Хочу узнать',
+                text: 'Пройти тест 🔥',
                 callback_data: `start_test_${userId}`,
               },
             ],
@@ -313,7 +332,9 @@ function sendQuestion(chatId, userId) {
     if (session) {
       const level = determineLevel(session.score);
       const description = getLevelDescription(level);
-      bot.sendMessage(chatId, `Ваш результат: ${session.score}/${testQuestions.length}. Уровень: ${level}\n\n${description}`);
+      bot.sendMessage(chatId, `Ваш результат: ${session.score}/${testQuestions.length}. Уровень: ${level}\n\n${description}`).then(() => {
+        bot.sendAnimation(chatId, 'gif1.gif');
+      });
     } else {
       bot.sendMessage(chatId, 'Тест завершён.');
     }
