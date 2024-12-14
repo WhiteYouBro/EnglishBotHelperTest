@@ -1,10 +1,12 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 const path = require('path');
-const token = '8125764878:AAHKwqCtYKeYcXDoG8x09mapynEq-m_WxF8'; // токен бота
-//const token = '8186537342:AAHFgfFdPmtobgmO0qUZMYG7ae0xdkZ-8Yo';
+const token = process.env.TELEGRAM_BOT_TOKEN; // токен бота
 const bot = new TelegramBot(token, { polling: true });
 const KeepAlive = require('./keep_alive.js');
+require('dotenv').config();
+
+
 
 const requiredChannel = '-1001857511663'; // заменить на id канала который нужно чтоб человек был подписан
 //const requiredChannel = '-1002366112090'; //test
@@ -89,7 +91,7 @@ const testQuestions = [
     correct: 1
   },
   {
-    question: '9/25 He ____ very fast when the police ____ him.',
+    question: '9/25 He ____ very fast when the police _ him.',
     options: ['drove / stop', 'was driving / stopped', 'has drove / was stopping'],
     correct: 1
   },
@@ -99,7 +101,7 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '11/25 Do you ____ coffee? Yes, but ____ to quit.',
+    question: '11/25 Do you _ coffee? Yes, but ____ to quit.',
     options: ['drink / I’m trying', 'drinking / I try', 'drunk / I’m trying'],
     correct: 0
   },
@@ -129,7 +131,7 @@ const testQuestions = [
     correct: 0
   },
   {
-    question: '17/25 I ____ an umbrella with me this morning because it ____.',
+    question: '17/25 I ____ an umbrella with me this morning because it __.',
     options: ['didn’t take / rained', 'took / was raining', 'took / have rained'],
     correct: 1
   },
@@ -332,7 +334,7 @@ bot.on('callback_query', async (query) => {
 
   const session = userSessions[userId];
   if (!session) {
-    bot.sendMessage(chatId, 'Произошла неизвестная ошибка. Напишите /start если у вас перестал работать тест.');
+    bot.sendMessage(chatId, 'Произошла неизвестная ошибка. Пропишите /start если у вас перестал работать тест.');
     return;
   }
 
