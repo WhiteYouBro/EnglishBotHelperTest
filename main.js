@@ -2,14 +2,14 @@ const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 const path = require('path');
 const token = '8125764878:AAHKwqCtYKeYcXDoG8x09mapynEq-m_WxF8'; // токен бота
-//const token = '' <- для тестов
+//const token = '8186537342:AAHFgfFdPmtobgmO0qUZMYG7ae0xdkZ-8Yo';
 const bot = new TelegramBot(token, { polling: true });
 const KeepAlive = require('./keep_alive.js');
 
 const requiredChannel = '-1001857511663'; // заменить на id канала который нужно чтоб человек был подписан
-// const requiredChannel = '-1002366112090'; тоже для тестов
+//const requiredChannel = '-1002366112090'; //test
 const requiredChannelLink = "https://t.me/AmericaninSPB"; // а здесь просто ссылка на канал
-const needchannelid = "УКАЖИТЕ ID ЧАТА КАНАЛА ДЛЯ РАССЫЛОК (ТАК ЖЕ ДОБАВЬТЕ БОТА В КАНАЛ ЧТОБЫ ОН ВИДЕЛ СООБЩЕНИЯ)"; // сюда нужно указать id чата канала с которого бот будет скидывать рассылки юзерам
+const needchannelid = "-1002478343052"; // сюда нужно указать id чата канала с которого бот будет скидывать рассылки юзерам
 const usersFile = 'users.json';
 function initializeUsersFile() {
   if (!fs.existsSync(usersFile)) {
@@ -401,8 +401,14 @@ function sendQuestion(chatId, userId) {
     if (session) {
       const level = determineLevel(session.score);
       const description = getLevelDescription(level);
-      bot.sendMessage(chatId, `⭐️ Ваш результат: ${session.score}/${testQuestions.length}. \n\n🥇 Ваш уровень: ${level}\n\n${description}`).then(() => {
-        bot.sendDocument(chatId, "./1000 free english words.pdf")
+      
+      // Удаляем сообщение с последним вопросом
+      if (session.messageId) {
+        bot.deleteMessage(chatId, session.messageId).catch((err) => console.log('Ошибка удаления сообщения:', err));
+      }
+      
+      // Отправляем результат и гифку
+      bot.sendMessage(chatId, `Ваш результат: ${session.score}/${testQuestions.length}. Уровень: ${level}\n\n${description}`).then(() => {
         bot.sendAnimation(chatId, 'gif1.gif');
       });
     } else {
@@ -437,6 +443,7 @@ function sendQuestion(chatId, userId) {
 
   resetInactivityTimer(userId);
 }
+
 
 // Сброс сессии после завершения теста
 function resetSession(userId) {
