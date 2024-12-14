@@ -332,7 +332,7 @@ bot.on('callback_query', async (query) => {
 
   const session = userSessions[userId];
   if (!session) {
-    bot.sendMessage(chatId, 'Произошла неизвестная ошибка. Можете её игнорировать и продолжать тест! ☺');
+    bot.sendMessage(chatId, 'Произошла неизвестная ошибка. Напишите /start если у вас перестал работать тест.');
     return;
   }
 
