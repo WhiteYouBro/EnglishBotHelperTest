@@ -1,10 +1,11 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 const token = process.env.TELEGRAM_BOT_TOKEN; // токен бота
 const bot = new TelegramBot(token, { polling: true });
 const KeepAlive = require('./keep_alive.js');
-require('dotenv').config();
+
 
 
 
